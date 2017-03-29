@@ -5,7 +5,16 @@ namespace Hutong\Tool;
  */
 class Common
 {
-	public static function createStr($num = 4, $type = 0)
+	/**
+	 * 获取随机字符串
+	 *
+	 * @param  integer $num
+	 * @param  integer $type 0.数字字母组合 1.数组 2.字母
+	 * @return [type]
+	 * @author hutong
+	 * @date   2017-03-29T16:37:32+080
+	 */
+	public static function getRandomStr($num = 4, $type = 0)
 	{
 	    $code = '';
 
@@ -25,6 +34,31 @@ class Common
 	    {
 	        $code .= $codes[array_rand($codes)];
 	    }
+
 	    return $code;
 	}
+
+	/**
+	 * 返回扩展名
+	 *
+	 * @param  [type] $fileName
+	 * @return [type]
+	 * @author hutong
+	 * @date   2017-03-29T16:37:07+080
+	 */
+	public static function getExtension($fileName)
+	{
+		$ext = explode('.', $fileName);
+        $ext = array_pop($ext);
+
+        return strtolower($ext);
+	}
+
+	// 转换大小单位
+    public static function getFormatBytes($size)
+    {
+        $unit = array('b', 'kb', 'mb', 'gb', 'tb', 'pb');
+
+        return @round($size / pow(1024, ($i = floor(log($size, 1024)))), 2) . ' ' . $unit[$i];
+    }
 }
