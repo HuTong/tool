@@ -44,6 +44,36 @@ class Oss
 	}
 
 	/**
+	 * 获取临时访问地址
+	 *
+	 * @param  string $bucket
+	 * @param  string $object
+	 * @param  int $time
+	 * @return string
+	 * @author hutong
+	 * @date   2017-04-28T17:00:29+080
+	 */
+	public function signUrl($bucket, $object, $time = 3600)
+	{
+		if(empty($object) || empty($object))
+		{
+			return false;
+		}
+
+		$this->init();
+
+		try{
+	        return $this->client->signUrl($bucket, trim($object,'/'), $time);
+	    } catch(OssException $e) {
+	        // printf(__FUNCTION__ . ": FAILED\n");
+	        // printf($e->getMessage() . "\n");
+	        return;
+	    }
+
+		return;
+	}
+
+	/**
 	 * 删除文件
 	 *
 	 * @param  string $bucket
