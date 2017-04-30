@@ -11,30 +11,38 @@ class Oss
 	private $config;
 	private $client;
 
-	public function __construct($config)
+	public function __construct($configs)
 	{
-		if(!isset($config['accessKeyId']) || empty($config['accessKeyId']))
+		foreach ($configs as $config)
 		{
-			throw new \Exception('accessKeyId 不能为空');
-		}
-		if(!isset($config['accessKeySecret']) || empty($config['accessKeySecret']))
-		{
-			throw new \Exception('accessKeySecret 不能为空');
-		}
-		if(!isset($config['endpoint']) || empty($config['endpoint']))
-		{
-			throw new \Exception('endpoint 不能为空');
-		}
+			if(!isset($config['accessKeyId']) || empty($config['accessKeyId']))
+			{
+				throw new \Exception('accessKeyId 不能为空');
+			}
+			if(!isset($config['accessKeySecret']) || empty($config['accessKeySecret']))
+			{
+				throw new \Exception('accessKeySecret 不能为空');
+			}
+			if(!isset($config['endpoint']) || empty($config['endpoint']))
+			{
+				throw new \Exception('endpoint 不能为空');
+			}
+			if(!isset($config['bucket']) || empty($config['bucket']))
+			{
+				throw new \Exception('bucket 不能为空');
+			}
 
-		$this->config = $config;
+			$this->config[$config['bucket']] = $config;
+		}
 	}
 
-	private function init()
+	private function init($bucket)
 	{
-		if(is_null($this->client))
+		if(!isset($this->client[$bucket]))
 		{
 			try {
-				$this->client = new OssClient($this->config['accessKeyId'], $this->config['accessKeySecret'], $this->config['endpoint'], false);
+				$config = $this->config[$bucket];
+				$this->client[$bucket] = new OssClient($config['accessKeyId'], $config['accessKeySecret'], $config['endpoint'], false);
 			} catch (OssException $e) {
 				printf(__FUNCTION__ . "creating OssClient instance: FAILED\n");
 				printf($e->getMessage() . "\n");
@@ -60,10 +68,10 @@ class Oss
 			return false;
 		}
 
-		$this->init();
+		$this->init($bucket);
 
 		try{
-	        return $this->client->signUrl($bucket, trim($object,'/'), $time);
+	        return $this->client[$bucket]->signUrl($bucket, trim($object,'/'), $time);
 	    } catch(OssException $e) {
 	        // printf(__FUNCTION__ . ": FAILED\n");
 	        // printf($e->getMessage() . "\n");
@@ -90,10 +98,10 @@ class Oss
 			return false;
 		}
 
-		$this->init();
+		$this->init($bucket);
 
 	    try{
-	        $this->client->uploadFile($bucket, $filePath, $object);
+	        $this->client[$bucket]->uploadFile($bucket, $filePath, $object);
 
 	        return true;
 	    } catch(OssException $e) {
@@ -122,10 +130,10 @@ class Oss
 			return false;
 		}
 
-		$this->init();
+		$this->init($bucket);
 
 	    try{
-	        $this->client->putObject($bucket, $object, $content);
+	        $this->client[$bucket]->putObject($bucket, $object, $content);
 
 	        return true;
 	    } catch(OssException $e) {
@@ -153,14 +161,14 @@ class Oss
 			return;
 		}
 
-		$this->init();
+		$this->init($bucket);
 
 		try{
-	        $exist = $this->client->doesObjectExist($bucket, $object);
+	        $exist = $this->client[$bucket]->doesObjectExist($bucket, $object);
 
 	        if($exist)
 			{
-	        	return $this->client->getObject($bucket, $object);
+	        	return $this->client[$bucket]->getObject($bucket, $object);
 	        }
 	    } catch(OssException $e) {
 	        // printf(__FUNCTION__ . ": FAILED\n");
@@ -191,14 +199,14 @@ class Oss
 			return true;
 		}
 
-		$this->init();
+		$this->init($bucket);
 
 		try{
-			$exist = $this->client->doesObjectExist($bucket, $object);
+			$exist = $this->client[$bucket]->doesObjectExist($bucket, $object);
 
 	        if($exist)
 			{
-	        	$this->client->deleteObject($bucket, $object);
+	        	$this->client[$bucket]->deleteObject($bucket, $object);
 	        }
 
 	        return true;
