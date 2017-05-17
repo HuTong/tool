@@ -48,7 +48,8 @@ class Common
 	 */
 	public static function getExtension($fileName)
 	{
-		$ext = end(explode('.', $fileName));
+		$exp = explode('.', $fileName);
+		$ext = end($exp);
 
         return strtolower($ext);
 	}
