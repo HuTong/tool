@@ -1,5 +1,15 @@
 # tool
-常用工具
+工具
+
+## Pagination
+```
+protected function getPagination($page_total = 1, $page_size = 1, $page_current = 1, $page_url, $show_pages = '')
+{
+    $page = new HuTong\Tool\Pagination();
+
+    return $page->page_show($page_total, $page_size, $page_current, $page_url, $show_pages);
+}
+```
 
 ## sphinx
 ### 配置
