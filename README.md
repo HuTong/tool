@@ -98,3 +98,71 @@ print_r($sphinx->Query($word,'main'));
 $xpath = "//div[contains(@class,'design-goods-image-container')]//a//@href";
 $alist = selector::select($html, $xpath);
 ```
+
+## ArrXmlParse
+### 解析数组、xml之间的相互转化
+```
+$array = array(
+	'name' => 'zhangsan',
+	'sex'  => 30,
+	'list' => array(array('cname'=>'aa','bid'=>1),array('cname'=>'bb','bid'=>2))
+);
+echo ArrXmlParse::parseArr($array, 'root');
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <name>zhangsan</name>
+  <sex>30</sex>
+  <list>
+    <item>
+      <cname>aa</cname>
+      <bid>1</bid>
+    </item>
+    <item>
+      <cname>bb</cname>
+      <bid>2</bid>
+    </item>
+  </list>
+</root>
+
+$str = '<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <name>lisi</name>
+  <sex>30</sex>
+  <list>
+    <item>
+      <cname>aa</cname>
+      <bid>1</bid>
+    </item>
+    <item>
+      <cname>bb</cname>
+      <bid>2</bid>
+    </item>
+  </list>
+</root>';
+print_r(ArrXmlParse::parseXml($str));
+Array
+(
+    [name] => lisi
+    [sex] => 30
+    [list] => Array
+        (
+            [item] => Array
+                (
+                    [0] => Array
+                        (
+                            [cname] => aa
+                            [bid] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [cname] => bb
+                            [bid] => 2
+                        )
+
+                )
+
+        )
+
+)
+```
