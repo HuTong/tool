@@ -91,3 +91,10 @@ print_r($sphinx->Query($word,'main'));
 
 //print_r($sphinx->updateAttributes('main',array("look"),array(15=>array(66))));
 ```
+
+## Selector
+### 分析html数据信息 主要在采集数据的时候使用
+```
+$xpath = "//div[contains(@class,'design-goods-image-container')]//a//@href";
+$alist = selector::select($html, $xpath);
+```
