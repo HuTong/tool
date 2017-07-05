@@ -166,3 +166,17 @@ Array
 
 )
 ```
+
+## Validate
+### 数据规则验证
+```
+1、数据验证
+Validate::isMobile('18565101045');
+
+2、表单验证
+$vparams = array(
+    array('input' => '18565101045', 'require' => true, 'message' => '手机号码不正确', 'validator' => 'isMobile'),
+    array('input' => '18565101045@qq.com', 'require' => false, 'message' => '格式不正确', 'validator' => 'isEmail'),
+);
+print_r(Validate::form($vparams));
+```
