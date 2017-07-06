@@ -1,5 +1,6 @@
 <?php
 namespace Hutong\Tool;
+
 use OSS\OssClient;
 use OSS\Core\OssException;
 

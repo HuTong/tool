@@ -1,5 +1,6 @@
 <?php
 namespace Hutong\Tool;
+
 /**
  * @desc 该类来源于phpspider 用来做数据的采集解析
  */
@@ -64,7 +65,7 @@ class Selector
             {
                 $nodeName = $element->nodeName;
                 $nodeType = $element->nodeType;     // 1.Element 2.Attribute 3.Text
-   
+
                 // 如果是img标签，直接取src值
                 if ($nodeType == 1 && in_array($nodeName, array('img')))
                 {

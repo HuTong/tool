@@ -1,5 +1,6 @@
 <?php
 namespace Hutong\Tool;
+
 /**
  * @desc 数据验证
  */

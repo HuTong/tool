@@ -1,5 +1,6 @@
 <?php
 namespace Hutong\Tool;
+
 /**
 * @desc 分页数据
 */
@@ -71,7 +72,7 @@ class Pagination
 
 			$tags = array('full','first','prev','next','last','curr','ellipsis');
 
-			foreach ($tags as $tag) 
+			foreach ($tags as $tag)
 			{
 				$tag_open  = $tag.'_tag_open';
 				$tag_close = $tag.'_tag_close';
@@ -89,7 +90,7 @@ class Pagination
 		}
 	}
 
-    private function initPage() 
+    private function initPage()
     {
         if ($this->page_total < 0)
         {
@@ -189,7 +190,7 @@ class Pagination
     }
 
     //检测是否为数字
-    private function numeric($num) 
+    private function numeric($num)
     {
         if (strlen($num))
 		{
@@ -206,13 +207,13 @@ class Pagination
     }
 
     //地址替换
-    private function page_replace($page) 
+    private function page_replace($page)
     {
         return str_replace("{page}", $page, $this->page_url);
     }
 
     //首页
-    private function page_home() 
+    private function page_home()
     {
         if ($this->page_current != 1)
 		{
@@ -223,7 +224,7 @@ class Pagination
     }
 
     //上一页
-    private function page_prev() 
+    private function page_prev()
     {
         if ($this->page_current != 1)
 		{
@@ -234,7 +235,7 @@ class Pagination
     }
 
     //下一页
-    private function page_next() 
+    private function page_next()
     {
         if ($this->page_current != $this->page_count)
 		{

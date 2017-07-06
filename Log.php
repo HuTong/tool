@@ -1,5 +1,6 @@
 <?php
 namespace Hutong\Tool;
+
 /**
  * @desc 日志方法
  */
@@ -26,7 +27,7 @@ class Log
     public static function warn($msg)
     {
         self::$out_sta = self::$out_end = "";
-        if (!util::is_win()) 
+        if (!util::is_win())
         {
             self::$out_sta = "\033[33m";
             self::$out_end = "\033[0m";
@@ -38,7 +39,7 @@ class Log
     public static function debug($msg)
     {
         self::$out_sta = self::$out_end = "";
-        if (!util::is_win()) 
+        if (!util::is_win())
         {
             self::$out_sta = "\033[36m";
             self::$out_end = "\033[0m";
@@ -50,7 +51,7 @@ class Log
     public static function error($msg)
     {
         self::$out_sta = self::$out_end = "";
-        if (!util::is_win()) 
+        if (!util::is_win())
         {
             self::$out_sta = "\033[31m";
             self::$out_end = "\033[0m";
@@ -61,16 +62,16 @@ class Log
 
     public static function msg($msg, $log_type)
     {
-        if ($log_type != 'note' && self::$log_type && strpos(self::$log_type, $log_type) === false) 
+        if ($log_type != 'note' && self::$log_type && strpos(self::$log_type, $log_type) === false)
         {
             return false;
         }
 
-        if ($log_type == 'note') 
+        if ($log_type == 'note')
         {
             $msg = self::$out_sta. $msg . "\n".self::$out_end;
         }
-        else 
+        else
         {
             $msg = self::$out_sta.date("Y-m-d H:i:s")." [{$log_type}] " . $msg .self::$out_end. "\n";
         }
@@ -79,7 +80,7 @@ class Log
         {
             echo $msg;
         }
-        
+
         if(is_file(self::$log_file))
         {
         	file_put_contents(self::$log_file, $msg, FILE_APPEND | LOCK_EX);

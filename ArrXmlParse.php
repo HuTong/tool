@@ -1,5 +1,6 @@
 <?php
 namespace Hutong\Tool;
+
 /**
  * @desc 解析数组、xml之间的相互转化
  */

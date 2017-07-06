@@ -1,5 +1,6 @@
 <?php
 namespace Hutong\Tool;
+
 /**
  * sphinx 搜索
  *
