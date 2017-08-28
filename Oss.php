@@ -83,7 +83,7 @@ class Oss
 	}
 
 	/**
-	 * 删除文件
+	 * 上传文件
 	 *
 	 * @param  string $bucket
 	 * @param  string $object
