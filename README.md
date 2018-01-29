@@ -4,7 +4,7 @@
 # 学习交流群
 630730920
 
-## Pagination
+## Pagination 将分页独立出来使用
 ```
 protected function getPagination($page_total = 1, $page_size = 1, $page_current = 1, $page_url, $show_pages = '')
 {
