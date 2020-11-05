@@ -183,3 +183,6 @@ $vparams = array(
 );
 print_r(Validate::form($vparams));
 ```
+
+## Region
+### 通过国家行政区划数据组装成地址库
